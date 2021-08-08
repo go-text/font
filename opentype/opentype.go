@@ -23,7 +23,7 @@ type FaceOpentype interface {
 	// IsGraphite returns true if the font has Graphite capabilities.
 	// The returned Face will be used to load Graphite tables.
 	// Overide this method to disable Graphite functionalities.
-	IsGraphite() (bool, *Face)
+	IsGraphite() (*Face, bool)
 }
 
 // Face is the in-memory representation of a font file (.ttf, .otf)
