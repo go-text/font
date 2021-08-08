@@ -35,7 +35,7 @@ type Face struct{}
 type TableFvar struct{}
 
 // TablesLayout exposes advanced layout tables.
-// All the fields are optionnals, since a font may only provide a subset of these tables.
+// All the fields are optionals, since a font may only provide a subset of these tables.
 type TablesLayout struct {
 	GDEF TableGDEF // An absent table has a nil Class
 	Trak TableTrak
