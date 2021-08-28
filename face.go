@@ -31,8 +31,8 @@ type FaceMetrics interface {
 	// string if the glyph is invalid or has no name.
 	GlyphName(glyph GID) string
 
-	// FontHExtents returns the extents of the font for horizontal text, or false
-	// it not available, in font units.
+	// FontHExtents returns the extents of the font for horizontal text in font units,
+	// or false if not available.
 	// `varCoords` (in normalized coordinates) is only useful for variable fonts.
 	FontHExtents(varCoords []float32) (FontExtents, bool)
 
