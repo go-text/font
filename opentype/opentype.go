@@ -16,9 +16,23 @@ type FaceOpentype interface {
 	// TablesLayout fetches the advanced Opentype and AAT layout tables of the font.
 	TablesLayout() TablesLayout
 
-	// Variations returns the variations for the font,
-	// or an empty table.
+	// Variations returns the 'fvar' table (maybe empty).
 	Variations() TableFvar
+
+	// SetVarCoordinates apply the normalized coordinates values.
+	// Use `NormalizeVariations` to convert from design space units.
+	// See also `SetVariations`.
+	SetVarCoordinates(coords []float32)
+
+	// VarCoordinates returns the current variable coordinates,
+	// in normalized units.
+	VarCoordinates() []float32
+
+	// NormalizeVariations should normalize the given design-space coordinates. The minimum and maximum
+	// values for the axis are mapped to the interval [-1,1], with the default
+	// axis value mapped to 0.
+	// This should be a no-op for non-variable fonts.
+	NormalizeVariations(coords []float32) []float32
 
 	// IsGraphite returns true if the font has Graphite capabilities.
 	// The returned Face will be used to load Graphite tables.

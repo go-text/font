@@ -34,10 +34,10 @@ type FaceMetrics interface {
 	// FontHExtents returns the extents of the font for horizontal text in font units,
 	// or false if not available.
 	// `varCoords` (in normalized coordinates) is only useful for variable fonts.
-	FontHExtents(varCoords []float32) (FontExtents, bool)
+	FontHExtents() (FontExtents, bool)
 
 	// FontVExtents is the same as `FontHExtents`, but for vertical text.
-	FontVExtents(varCoords []float32) (FontExtents, bool)
+	FontVExtents() (FontExtents, bool)
 
 	// NominalGlyph returns the glyph used to represent the given rune,
 	// or false if not found.
@@ -48,29 +48,23 @@ type FaceMetrics interface {
 	// should return a default value (the upem number for example).
 	// If the glyph is invalid it should return 0.
 	// `varCoords` is used by variable fonts, and is specified in normalized coordinates.
-	HorizontalAdvance(glyph GID, varCoords []float32) float32
+	HorizontalAdvance(glyph GID) float32
 
 	// VerticalAdvance is the same as `HorizontalAdvance`, but for vertical advance.
-	VerticalAdvance(glyph GID, varCoords []float32) float32
+	VerticalAdvance(glyph GID) float32
 
 	// GlyphHOrigin fetches the (X,Y) coordinates of the origin (in font units) for a glyph ID,
 	// for horizontal text segments.
 	// Returns `false` if not available.
-	GlyphHOrigin(glyph GID, varCoords []float32) (x, y int32, found bool)
+	GlyphHOrigin(glyph GID) (x, y int32, found bool)
 
 	// GlyphVOrigin is the same as `GlyphHOrigin`, but for vertical text segments.
-	GlyphVOrigin(glyph GID, varCoords []float32) (x, y int32, found bool)
+	GlyphVOrigin(glyph GID) (x, y int32, found bool)
 
 	// GlyphExtents retrieve the extents for a specified glyph, of false, if not available.
 	// `varCoords` is used by variable fonts, and is specified in normalized coordinates.
 	// For bitmap glyphs, the closest resolution to `xPpem` and `yPpem` is selected.
-	GlyphExtents(glyph GID, varCoords []float32, xPpem, yPpem uint16) (GlyphExtents, bool)
-
-	// NormalizeVariations should normalize the given design-space coordinates. The minimum and maximum
-	// values for the axis are mapped to the interval [-1,1], with the default
-	// axis value mapped to 0.
-	// This should be a no-op for non-variable fonts.
-	NormalizeVariations(varCoords []float32) []float32
+	GlyphExtents(glyph GID, xPpem, yPpem uint16) (GlyphExtents, bool)
 }
 
 // FaceRenderer implements the drawing of glyphs.
